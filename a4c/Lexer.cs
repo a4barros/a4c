@@ -28,11 +28,11 @@ namespace a4c
                 }
                 else
                 {
-                    lexerState = LexerStateEnum.NORMAL;
-                    if (numberBuffer != 0)
+                    if (lexerState == LexerStateEnum.WITHIN_NUMBER)
                     {
                         tokens.Add(TokenFactory.CreateToken(numberBuffer));
                         numberBuffer = 0;
+                        lexerState = LexerStateEnum.NORMAL;
                     }
                 }
                 if (lexerState == LexerStateEnum.NORMAL)

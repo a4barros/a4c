@@ -8,7 +8,7 @@ namespace test
         [Fact]
         public void Test1()
         {
-            var tokens = Lexer.ProcessString("1+23 * 4/5  -9");
+            var tokens = Lexer.ProcessString("1+23 * 0/5  -9");
             var t = tokens.Consume();
             Assert.True(t.IsNumeric());
             Assert.Equal(1, t.GetValue());
@@ -27,7 +27,7 @@ namespace test
 
             t = tokens.Consume();
             Assert.True(t.IsNumeric());
-            Assert.Equal(4, t.GetValue());
+            Assert.Equal(0, t.GetValue());
 
             t = tokens.Consume();
             Assert.False(t.IsNumeric());
@@ -44,6 +44,37 @@ namespace test
             t = tokens.Consume();
             Assert.True(t.IsNumeric());
             Assert.Equal(9, t.GetValue());
+        }
+        [Fact]
+        public void Test2()
+        {
+            var tokens = Lexer.ProcessString("123 456");
+            var t = tokens.Consume();
+            Assert.True(t.IsNumeric());
+            Assert.Equal(123, t.GetValue());
+            t = tokens.Consume();
+            Assert.True(t.IsNumeric());
+            Assert.Equal(456, t.GetValue());
+        }
+        [Fact]
+        public void Test3()
+        {
+            var tokens = Lexer.ProcessString("123 456 +");
+            var t = tokens.Consume();
+            t = tokens.Consume();
+            t = tokens.Consume();
+            Assert.False(t.IsNumeric());
+            Assert.Equal(TokenTypeEnum.SUM, t.GetTokenType());
+        }
+        [Fact]
+        public void Test4()
+        {
+            var tokens = Lexer.ProcessString("123 456+");
+            var t = tokens.Consume();
+            t = tokens.Consume();
+            t = tokens.Consume();
+            Assert.False(t.IsNumeric());
+            Assert.Equal(TokenTypeEnum.SUM, t.GetTokenType());
         }
     }
 }
