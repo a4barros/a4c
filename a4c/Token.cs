@@ -68,7 +68,7 @@ namespace a4c
             return $"<{GetTokenType()}>";
         }
     }
-    internal static class TokenFactory
+    public static class TokenFactory
     {
         public static IToken CreateToken(int value)
         {
