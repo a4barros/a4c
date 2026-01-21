@@ -8,7 +8,7 @@ namespace a4c
     {
         SUM, MINUS, MUL, DIV, OPEN_PARENTHESIS, CLOSE_PARENTHESIS, NUMBER
     }
-    internal interface IToken
+    public interface IToken
     {
         public bool IsNumeric();
         public TokenTypeEnum GetTokenType();
@@ -79,7 +79,7 @@ namespace a4c
             return new OperationToken(tokenType);
         }
     }
-    internal class TokenList
+    public class TokenList
     {
         private List<IToken> tokens = new List<IToken>();
         public TokenList()

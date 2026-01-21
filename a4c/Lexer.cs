@@ -6,7 +6,7 @@ using System.Text;
 
 namespace a4c
 {
-    internal static class Lexer
+    public static class Lexer
     {
         private enum LexerStateEnum
         {
@@ -23,7 +23,7 @@ namespace a4c
                 if (char.IsDigit(c))
                 {
                     lexerState = LexerStateEnum.WITHIN_NUMBER;
-                    numberBuffer = numberBuffer * 10 + (c - '0');
+                    numberBuffer = AddDigit(numberBuffer, c);
                     continue;
                 }
                 else
@@ -47,10 +47,23 @@ namespace a4c
                         { ')', TokenTypeEnum.CLOSE_PARENTHESIS },
                     };
 
-                    tokens.Add(TokenFactory.CreateToken(tokenMap[c]));
+                    if (tokenMap.ContainsKey(c))
+                    {
+                        tokens.Add(TokenFactory.CreateToken(tokenMap[c]));
+                    }
+                    else
+                    {
+                        if (!char.IsWhiteSpace(c)) {
+                            throw new Exception($"Invalid character {c}");
+                        }
+                    }
                 }
             }
             return tokens;
+        }
+        private static int AddDigit(int currentNumber, int digit)
+        {
+            return currentNumber * 10 + (digit - '0');
         }
     }
 }

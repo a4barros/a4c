@@ -1,2 +1,4 @@
-﻿// See https://aka.ms/new-console-template for more information
-Console.WriteLine("Hello, World!");
+﻿using a4c;
+
+var t = Lexer.ProcessString("1+23 * 4/5");
+Console.WriteLine(t.Consume());
