@@ -54,7 +54,7 @@ namespace a4c
                     else
                     {
                         if (!char.IsWhiteSpace(c)) {
-                            throw new Exception($"Invalid character {c}");
+                            throw new InvalidCharacter($"Invalid character {c}");
                         }
                     }
                 }
@@ -65,5 +65,8 @@ namespace a4c
         {
             return currentNumber * 10 + (digit - '0');
         }
+    }
+    public class InvalidCharacter(string message) : Exception(message)
+    {
     }
 }

@@ -76,5 +76,10 @@ namespace test
             Assert.False(t.IsNumeric());
             Assert.Equal(TokenTypeEnum.SUM, t.GetTokenType());
         }
+        [Fact]
+        public void Test5()
+        {
+            Assert.Throws<InvalidCharacter>(() => Lexer.ProcessString("."));
+        }
     }
 }
