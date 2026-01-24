@@ -4,21 +4,18 @@ using System.Text;
 
 namespace a4c
 {
-    public enum TokenTypeEnum
-    {
-        SUM, MINUS, MUL, DIV, OPEN_PARENTHESIS, CLOSE_PARENTHESIS, NUMBER
-    }
+
     public interface IToken
     {
         public bool IsNumeric();
-        public TokenTypeEnum GetTokenType();
-        public int GetValue();
+        public Operation GetOperation();
+        public decimal GetValue();
         public string ToString();
     }
     internal class NumericToken : IToken
     {
-        private readonly int Value;
-        public NumericToken(int value)
+        private readonly decimal Value;
+        public NumericToken(decimal value)
         {
             this.Value = value;
         }
@@ -28,12 +25,12 @@ namespace a4c
             return true;
         }
 
-        public TokenTypeEnum GetTokenType()
+        public Operation GetOperation()
         {
-            return TokenTypeEnum.NUMBER;
+            return Operation.NUMBER;
         }
 
-        public int GetValue()
+        public decimal GetValue()
         {
             return Value;
         }
@@ -44,8 +41,8 @@ namespace a4c
     }
     internal class OperationToken : IToken
     {
-        private TokenTypeEnum TokenType;
-        public OperationToken(TokenTypeEnum tokenType)
+        private Operation TokenType;
+        public OperationToken(Operation tokenType)
         {
             TokenType = tokenType;
         }
@@ -54,27 +51,27 @@ namespace a4c
             return false;
         }
 
-        public TokenTypeEnum GetTokenType()
+        public Operation GetOperation()
         {
             return TokenType;
         }
 
-        public int GetValue()
+        public decimal GetValue()
         {
             return 0;
         }
         public override string ToString()
         {
-            return $"<{GetTokenType()}>";
+            return $"<{GetOperation()}>";
         }
     }
     public static class TokenFactory
     {
-        public static IToken CreateToken(int value)
+        public static IToken CreateToken(decimal value)
         {
             return new NumericToken(value);
         }
-        public static IToken CreateToken(TokenTypeEnum tokenType)
+        public static IToken CreateToken(Operation tokenType)
         {
             return new OperationToken(tokenType);
         }
