@@ -8,7 +8,7 @@ namespace a4c
 {
     public static class Lexer
     {
-        private enum LexerStateEnum
+        private enum LexerState
         {
             NORMAL,
             WITHIN_NUMBER,
@@ -16,35 +16,49 @@ namespace a4c
         public static TokenList ProcessString(string expressionStr)
         {
             TokenList tokens = new();
-            LexerStateEnum lexerState = LexerStateEnum.NORMAL;
-            int numberBuffer = 0;
+            LexerState lexerState = LexerState.NORMAL;
+            string numberBuffer = "";
             foreach (char c in expressionStr + " ")
             {
-                if (char.IsDigit(c))
+                if (c == '.' && numberBuffer.Contains('.'))
+                    throw new LexerException($"Invalid number {numberBuffer}{c}");
+
+                if (char.IsDigit(c) || c == '.')
                 {
-                    lexerState = LexerStateEnum.WITHIN_NUMBER;
-                    numberBuffer = AddDigit(numberBuffer, c);
+                    lexerState = LexerState.WITHIN_NUMBER;
+                    numberBuffer = $"{numberBuffer}{c}";
                     continue;
                 }
                 else
                 {
-                    if (lexerState == LexerStateEnum.WITHIN_NUMBER)
+                    if (lexerState == LexerState.WITHIN_NUMBER)
                     {
-                        tokens.Add(TokenFactory.CreateToken(numberBuffer));
-                        numberBuffer = 0;
-                        lexerState = LexerStateEnum.NORMAL;
+                        try
+                        {
+                            tokens.Add(TokenFactory.CreateToken(Convert.ToDecimal(numberBuffer)));
+                        }
+                        catch (FormatException)
+                        {
+                            throw new LexerException($"Invalid number {numberBuffer}{c}");
+                        }
+                        catch (OverflowException)
+                        {
+                            throw new LexerException($"Overflow on number {numberBuffer}{c}");
+                        }
+                        numberBuffer = "";
+                        lexerState = LexerState.NORMAL;
                     }
                 }
-                if (lexerState == LexerStateEnum.NORMAL)
+                if (lexerState == LexerState.NORMAL)
                 {
-                    Dictionary<char, TokenTypeEnum> tokenMap = new()
+                    Dictionary<char, Operation> tokenMap = new()
                     {
-                        { '+', TokenTypeEnum.SUM },
-                        { '-', TokenTypeEnum.MINUS },
-                        { '*', TokenTypeEnum.MUL },
-                        { '/', TokenTypeEnum.DIV },
-                        { '(', TokenTypeEnum.OPEN_PARENTHESIS },
-                        { ')', TokenTypeEnum.CLOSE_PARENTHESIS },
+                        { '+', Operation.PLUS },
+                        { '-', Operation.MINUS },
+                        { '*', Operation.MUL },
+                        { '/', Operation.DIV },
+                        { '(', Operation.OPEN_PARENTHESIS },
+                        { ')', Operation.CLOSE_PARENTHESIS },
                     };
 
                     if (tokenMap.ContainsKey(c))
@@ -54,19 +68,15 @@ namespace a4c
                     else
                     {
                         if (!char.IsWhiteSpace(c)) {
-                            throw new InvalidCharacter($"Invalid character {c}");
+                            throw new LexerException($"Invalid character {c}");
                         }
                     }
                 }
             }
             return tokens;
         }
-        private static int AddDigit(int currentNumber, int digit)
-        {
-            return currentNumber * 10 + (digit - '0');
-        }
     }
-    public class InvalidCharacter(string message) : Exception(message)
+    public class LexerException(string message) : Exception(message)
     {
     }
 }
