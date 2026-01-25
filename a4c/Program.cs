@@ -1,4 +1,9 @@
 ﻿using a4c;
 
-var t = Lexer.ProcessString("1+23 * 4/5");
-Console.WriteLine(t.Consume());
+while (true)
+{
+    var input = Console.ReadLine();
+    var l = Lexer.ProcessString(input ?? "");
+    var expr = new Parser(l);
+    Console.WriteLine(expr.Parse().Evaluate());
+}

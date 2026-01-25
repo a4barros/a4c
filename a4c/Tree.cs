@@ -7,16 +7,17 @@ using System.Text;
 
 namespace a4c
 {
-    public interface ITree
+    public interface INode
     {
         public decimal Evaluate();
+        public string ToString();
     }
-    public class BinaryNode : ITree
+    public class BinaryNode : INode
     {
-        private ITree left;
-        private ITree right;
-        private Operation operation;
-        public BinaryNode(Operation operation, ITree left, ITree right)
+        private readonly INode left;
+        private readonly INode right;
+        private readonly Operation operation;
+        public BinaryNode(Operation operation, INode left, INode right)
         {
             this.left = left;
             this.right = right;
@@ -33,29 +34,28 @@ namespace a4c
                 case Operation.MUL:
                     return left.Evaluate() * right.Evaluate();
                 case Operation.DIV:
-                    {
-                        var right = this.right.Evaluate();
-                        if (right == 0)
-                        {
-                            throw new TreeException($"On {this} division by zero");
-                        }
-                        return left.Evaluate() / this.right.Evaluate();
-                    }
+                {
+                    var r = right.Evaluate();
+                    if (r == 0)
+                        throw new TreeException($"On {this} division by zero");
+
+                    return left.Evaluate() / r;
+                }
                 default:
                     throw new TreeException($"Invalid operation on {this}");
             }
         }
         public override string ToString()
         {
-            return $"{operation}({left} {right})";
+            return $"({left} {operation} {right})";
         }
     }
 
-    public class UnaryNode : ITree
+    public class UnaryNode : INode
     {
-        private ITree node;
-        private Operation operation;
-        public UnaryNode(Operation operation, ITree node)
+        private readonly INode node;
+        private readonly Operation operation;
+        public UnaryNode(Operation operation, INode node)
         {
             this.node = node;
             this.operation = operation;
@@ -76,9 +76,9 @@ namespace a4c
         }
     }
 
-    public class NumberNode : ITree
+    public class NumberNode : INode
     {
-        private decimal value;
+        private readonly decimal value;
 
         public NumberNode(decimal value)
         {
@@ -89,6 +89,8 @@ namespace a4c
         {
             return value; 
         }
+        public override string ToString() => value.ToString();
+
     }
     public class TreeException(string message) : Exception(message);
 }

@@ -86,7 +86,7 @@ namespace test
         [Fact]
         public void TestStressLargeTree()
         {
-            ITree node = new NumberNode(1);
+            INode node = new NumberNode(1);
 
             for (int i = 0; i < 1000; i++)
             {

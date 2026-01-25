@@ -8,7 +8,11 @@ namespace a4c
     public interface IToken
     {
         public bool IsNumeric();
-        public Operation GetOperation();
+        public Operation GetOp();
+        public bool IsEither(Operation op1, Operation op2)
+        {
+            return GetOp() == op1 || GetOp() == op2;
+        }
         public decimal GetValue();
         public string ToString();
     }
@@ -25,7 +29,7 @@ namespace a4c
             return true;
         }
 
-        public Operation GetOperation()
+        public Operation GetOp()
         {
             return Operation.NUMBER;
         }
@@ -51,7 +55,7 @@ namespace a4c
             return false;
         }
 
-        public Operation GetOperation()
+        public Operation GetOp()
         {
             return TokenType;
         }
@@ -62,7 +66,7 @@ namespace a4c
         }
         public override string ToString()
         {
-            return $"<{GetOperation()}>";
+            return $"<{GetOp()}>";
         }
     }
     public static class TokenFactory
@@ -86,11 +90,19 @@ namespace a4c
         {
             tokens.Add(token);
         }
-        public IToken Consume()
+        public IToken? Consume()
         {
+            if (tokens.Count == 0)
+                return null;
             var t = tokens[0];
             tokens.RemoveAt(0);
             return t;
+        }
+        public IToken? LookNext()
+        {
+            if (tokens.Count == 0)
+                return null;
+            return tokens[0];
         }
         public override string ToString()
         {
