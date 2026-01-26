@@ -38,5 +38,119 @@ namespace test
             var expr = new Parser(Lexer.ProcessString("3/2 + 0.5"));
             Assert.Equal(2.0m, expr.Parse().Evaluate());
         }
+        [Fact]
+        public void TestPrecedence1()
+        {
+            var expr = new Parser(Lexer.ProcessString("1+2*3"));
+            Assert.Equal(7.0m, expr.Parse().Evaluate());
+        }
+        [Fact]
+        public void TestPrecedence2()
+        {
+            var expr = new Parser(Lexer.ProcessString("10-4/2"));
+            Assert.Equal(8.0m, expr.Parse().Evaluate());
+        }
+        [Fact]
+        public void TestAssociativity1()
+        {
+            var expr = new Parser(Lexer.ProcessString("10-3-2"));
+            Assert.Equal(5.0m, expr.Parse().Evaluate());
+        }
+        [Fact]
+        public void TestAssociativity2()
+        {
+            var expr = new Parser(Lexer.ProcessString("8/4/2"));
+            Assert.Equal(1.0m, expr.Parse().Evaluate());
+        }
+        [Fact]
+        public void TestParentheses1()
+        {
+            var expr = new Parser(Lexer.ProcessString("(1+2)*3"));
+            Assert.Equal(9.0m, expr.Parse().Evaluate());
+        }
+        [Fact]
+        public void TestParentheses2()
+        {
+            var expr = new Parser(Lexer.ProcessString("10*(2+3)"));
+            Assert.Equal(50.0m, expr.Parse().Evaluate());
+        }
+        [Fact]
+        public void TestParenthesesNested()
+        {
+            var expr = new Parser(Lexer.ProcessString("((1+2)*(3+4))"));
+            Assert.Equal(21.0m, expr.Parse().Evaluate());
+        }
+        [Fact]
+        public void TestUnaryMinus1()
+        {
+            var expr = new Parser(Lexer.ProcessString("-5"));
+            Assert.Equal(-5.0m, expr.Parse().Evaluate());
+        }
+        [Fact]
+        public void TestUnaryMinus2()
+        {
+            var expr = new Parser(Lexer.ProcessString("-(2+3)"));
+            Assert.Equal(-5.0m, expr.Parse().Evaluate());
+        }
+        [Fact]
+        public void TestUnaryMinus3()
+        {
+            var expr = new Parser(Lexer.ProcessString("--5"));
+            Assert.Equal(5.0m, expr.Parse().Evaluate());
+        }
+        [Fact]
+        public void TestUnaryMinus4()
+        {
+            var expr = new Parser(Lexer.ProcessString("-2*-3"));
+            Assert.Equal(6.0m, expr.Parse().Evaluate());
+        }
+        [Fact]
+        public void TestMixed1()
+        {
+            var expr = new Parser(Lexer.ProcessString("1 + 2 * 3 - 4 / 2"));
+            Assert.Equal(5.0m, expr.Parse().Evaluate());
+        }
+        [Fact]
+        public void TestMixed2()
+        {
+            var expr = new Parser(Lexer.ProcessString("(1 + 2) * (3 - 4 / 2)"));
+            Assert.Equal(3.0m, expr.Parse().Evaluate());
+        }
+        [Fact]
+        public void TestDecimalHandling()
+        {
+            var expr = new Parser(Lexer.ProcessString("1.5 * 2"));
+            Assert.Equal(3.0m, expr.Parse().Evaluate());
+        }
+        [Fact]
+        public void TestBigExpression()
+        {
+            var expr = new Parser(Lexer.ProcessString("-(3 + 4) * (2 - 5 / (1 + 1))"));
+            Assert.Equal(3.5m, expr.Parse().Evaluate());
+        }
+        [Fact]
+        public void TestSyntaxError1()
+        {
+            Assert.Throws<ParserException>(() =>
+                new Parser(Lexer.ProcessString("1+")).Parse());
+        }
+        [Fact]
+        public void TestSyntaxError2()
+        {
+            Assert.Throws<ParserException>(() =>
+                new Parser(Lexer.ProcessString("(1+2")).Parse());
+        }
+        [Fact]
+        public void TestSyntaxError3()
+        {
+            Assert.Throws<ParserException>(() =>
+                new Parser(Lexer.ProcessString("*)")).Parse());
+        }
+        [Fact]
+        public void TestSyntaxError4()
+        {
+            Assert.Throws<ParserException>(() =>
+                new Parser(Lexer.ProcessString("1++2")).Parse());
+        }
     }
 }

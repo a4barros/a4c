@@ -9,7 +9,6 @@ namespace test
         public void Test1()
         {
             var tree = new NumberNode(5);
-            Console.WriteLine(tree);
             Assert.Equal(5, tree.Evaluate());
         }
         [Fact]
