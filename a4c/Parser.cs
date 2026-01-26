@@ -35,9 +35,9 @@ namespace a4c
             var node = ParseTerm();
             var nextToken = tokenList.LookNext();
 
-            while (nextToken != null && nextToken.IsEither(Operation.PLUS, Operation.MINUS))
+            while ((nextToken = tokenList.LookNext()) != null && nextToken.IsEither(Operation.PLUS, Operation.MINUS))
             {
-                var operation = tokenList.Consume();
+                var operation = tokenList.Consume() ?? throw new ParserException("No more tokens to consume.");
                 var right = ParseTerm();
                 node = new BinaryNode(operation.GetOp(), node, right);
             }
@@ -51,9 +51,9 @@ namespace a4c
             var node = ParseFactor();
             var nextToken = tokenList.LookNext();
 
-            while (nextToken != null && nextToken.IsEither(Operation.MUL, Operation.DIV))
+            while ((nextToken = tokenList.LookNext()) != null && nextToken.IsEither(Operation.MUL, Operation.DIV))
             { 
-                var operation = tokenList.Consume();
+                var operation = tokenList.Consume() ?? throw new ParserException("No more tokens to consume.");
                 var right = ParseFactor();
                 node = new BinaryNode(operation.GetOp(), node, right);
             }
@@ -67,11 +67,14 @@ namespace a4c
             var nextToken = tokenList.LookNext();
             if (nextToken?.GetOp() == Operation.NUMBER)
             {
-                var value = tokenList.Consume().GetValue();
+                var numberToken = tokenList.Consume() ?? throw new ParserException("No more tokens to consume.");
+                var value = numberToken.GetValue();
+
                 return new NumberNode(value);
             }
             else if (nextToken?.GetOp() == Operation.OPEN_PARENTHESIS)
             {
+                tokenList.Consume();
                 var node = ParseExpr();
                 nextToken = tokenList.LookNext();
                 if (nextToken?.GetOp() != Operation.CLOSE_PARENTHESIS)
@@ -89,7 +92,9 @@ namespace a4c
             }
             else
             {
-                throw new ParserException($"Invalid operator on '{nextToken}'");
+                throw new ParserException(
+                    $"Unexpected '{nextToken}'. Expected number, '(', or '-'."
+                );
             }
         }
     }

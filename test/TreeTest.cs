@@ -21,7 +21,6 @@ namespace test
             var n150 = new BinaryNode(Operation.MUL, n15, ten);
             var n30 = new BinaryNode(Operation.DIV, n150, five);
             var m30 = new UnaryNode(Operation.NEGATIVE, n30);
-            Console.WriteLine(m30);
             Assert.Equal(-30, m30.Evaluate());
         }
         [Fact]

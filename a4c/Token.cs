@@ -66,7 +66,7 @@ namespace a4c
         }
         public override string ToString()
         {
-            return $"<{GetOp()}>";
+            return $"{GetOp()}";
         }
     }
     public static class TokenFactory
