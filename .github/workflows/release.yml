@@ -1,0 +1,45 @@
+name: Build and Release
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '10.0.x'
+
+      - name: Release Linux
+        run: dotnet publish -c Release -r linux-x64 -o publish/linux
+
+      - name: Release Windows
+        run: dotnet publish -c Release -r win-x64 -o publish/windows
+
+      - name: Release macOS Apple Silicon
+        run: dotnet publish -c Release -r osx-arm64 -o publish/macos-arm64
+
+      - name: Package artifacts
+        run: |
+          cd publish
+          tar -czf a4c-linux-x64.tar.gz linux
+          zip -r a4c-win-x64.zip windows
+          tar -czf a4c-macos-x64.tar.gz macos-x64
+          tar -czf a4c-macos-arm64.tar.gz macos-arm64
+
+      - name: Create Release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: |
+            publish/a4c-linux-x64.tar.gz
+            publish/a4c-win-x64.zip
+            publish/a4c-macos-x64.tar.gz
+            publish/a4c-macos-arm64.tar.gz
+
