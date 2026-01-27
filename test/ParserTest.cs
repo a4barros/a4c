@@ -39,6 +39,18 @@ namespace test
             Assert.Equal(2.0m, expr.Parse().Evaluate());
         }
         [Fact]
+        public void Test6()
+        {
+            var expr = new Parser(Lexer.ProcessString("(3/2 + 0.5)^2"));
+            Assert.Equal(4.0m, expr.Parse().Evaluate());
+        }
+        [Fact]
+        public void Test7()
+        {
+            var expr = new Parser(Lexer.ProcessString("(3/2 + 0.5)^(5-3)"));
+            Assert.Equal(4.0m, expr.Parse().Evaluate());
+        }
+        [Fact]
         public void TestPrecedence1()
         {
             var expr = new Parser(Lexer.ProcessString("1+2*3"));
@@ -152,5 +164,33 @@ namespace test
             Assert.Throws<ParserException>(() =>
                 new Parser(Lexer.ProcessString("1++2")).Parse());
         }
+        [Fact]
+        public void TestPower1()
+        {
+            var expr = new Parser(Lexer.ProcessString("2^3"));
+            Assert.Equal(8.0m, expr.Parse().Evaluate());
+        }
+
+        [Fact]
+        public void TestPower2()
+        {
+            var expr = new Parser(Lexer.ProcessString("2^3^2"));
+            Assert.Equal(512.0m, expr.Parse().Evaluate());
+        }
+
+        [Fact]
+        public void TestPower3()
+        {
+            var expr = new Parser(Lexer.ProcessString("2*3^2"));
+            Assert.Equal(18.0m, expr.Parse().Evaluate());
+        }
+
+        [Fact]
+        public void TestPower4()
+        {
+            var expr = new Parser(Lexer.ProcessString("(2+1)^3"));
+            Assert.Equal(27.0m, expr.Parse().Evaluate());
+        }
+
     }
 }

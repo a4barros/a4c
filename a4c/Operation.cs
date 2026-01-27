@@ -6,7 +6,7 @@ namespace a4c
 {
     public enum Operation
     {
-        PLUS, MINUS, MUL, DIV, NEGATIVE, OPEN_PARENTHESIS, CLOSE_PARENTHESIS, NUMBER
+        PLUS, MINUS, MUL, DIV, POW, NEGATIVE, OPEN_PARENTHESIS, CLOSE_PARENTHESIS, NUMBER
     }
     
 }

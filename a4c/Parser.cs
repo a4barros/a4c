@@ -9,8 +9,11 @@ namespace a4c
     // <expr>   ::= <term> + <term>
     //           |  <term> - <term>
 
-    // <term>   ::= <factor> * <factor>
-    //           |  <factor> / <factor>
+    // <term>   ::= <power> * <power>
+    //           |  <power> / <power>
+    //           |  <power>
+
+    // <power>  ::= <factor> ^ <factor>
     //           |  <factor>
 
     // <factor> ::= NUMBER
@@ -45,16 +48,30 @@ namespace a4c
         }
         private INode ParseTerm()
         {
-            // <term>   ::= <factor> * <factor>
-            //           |  <factor> / <factor>
-            //           |  <factor>
-            var node = ParseFactor();
+            // <term>   ::= <power> * <power>
+            //           |  <power> / <power>
+            //           |  <power>
+            var node = ParsePower();
             var nextToken = tokenList.LookNext();
 
             while ((nextToken = tokenList.LookNext()) != null && nextToken.IsEither(Operation.MUL, Operation.DIV))
             { 
                 var operation = tokenList.Consume() ?? throw new ParserException("No more tokens to consume.");
-                var right = ParseFactor();
+                var right = ParsePower();
+                node = new BinaryNode(operation.GetOp(), node, right);
+            }
+            return node;
+        }
+        private INode ParsePower()
+        {
+            // <power>  ::= <factor> ^ <factor>
+            //           |  <factor>
+            var node = ParseFactor();
+            var nextToken = tokenList.LookNext();
+            while ((nextToken = tokenList.LookNext()) != null && nextToken.Is(Operation.POW))
+            {
+                var operation = tokenList.Consume() ?? throw new ParserException("No more tokens to consume.");
+                var right = ParsePower();
                 node = new BinaryNode(operation.GetOp(), node, right);
             }
             return node;

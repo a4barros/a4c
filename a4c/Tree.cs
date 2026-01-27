@@ -41,6 +41,8 @@ namespace a4c
 
                     return left.Evaluate() / r;
                 }
+                case Operation.POW:
+                    return (decimal)Math.Pow((double)left.Evaluate(), (double)right.Evaluate());
                 default:
                     throw new TreeException($"Invalid operation on {this}");
             }

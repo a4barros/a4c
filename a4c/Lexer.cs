@@ -57,6 +57,7 @@ namespace a4c
                         { '-', Operation.MINUS },
                         { '*', Operation.MUL },
                         { '/', Operation.DIV },
+                        { '^', Operation.POW },
                         { '(', Operation.OPEN_PARENTHESIS },
                         { ')', Operation.CLOSE_PARENTHESIS },
                     };

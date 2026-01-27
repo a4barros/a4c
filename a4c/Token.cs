@@ -13,6 +13,10 @@ namespace a4c
         {
             return GetOp() == op1 || GetOp() == op2;
         }
+        public bool Is(Operation op)
+        {
+            return GetOp() == op;
+        }
         public decimal GetValue();
         public string ToString();
     }
