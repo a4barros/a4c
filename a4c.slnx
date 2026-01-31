@@ -1,4 +1,6 @@
 <Solution>
+  <Project Path="a4c.CLI/a4c.CLI.csproj" Id="bb8d0475-1545-4747-971c-905ff91182a6" />
+  <Project Path="a4c.UI/a4c.UI.csproj" />
   <Project Path="a4c/a4c.csproj" />
   <Project Path="test/test.csproj" Id="1911636e-51f4-47df-b1e0-6baf2727dc13" />
 </Solution>
