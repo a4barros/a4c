@@ -191,6 +191,17 @@ namespace test
             var expr = new Parser(Lexer.ProcessString("(2+1)^3"));
             Assert.Equal(27.0m, expr.Parse().Evaluate());
         }
-
+        [Fact]
+        public void TestBigExpr1()
+        {
+            var expr = new Parser(Lexer.ProcessString("( (597355-8916456*59756)/(45952-8252686))+789 *968/(964+945)*559+  123"));
+            Assert.Equal(288691.16178957152444783305458m, expr.Parse().Evaluate());
+        }
+        [Fact]
+        public void TestBigExpr2()
+        {
+            var expr = new Parser(Lexer.ProcessString("( (597355-8916456*59756)/(45952-8252686^3))+789^  (78-100) *968/(964+945)*559+  123"));
+            Assert.Equal(123.00000000094795416402683325m, expr.Parse().Evaluate());
+        }
     }
 }
