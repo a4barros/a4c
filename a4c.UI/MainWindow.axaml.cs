@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using System.Threading.Tasks;
 using Avalonia.Controls;
 using Avalonia.Interactivity;
@@ -39,12 +40,42 @@ public partial class MainWindow : Window
     {
         var operators = new[] { "+", "-", "*", "/", "^", ".", "(", ")" };
 
+        if (e.KeySymbol is null)
+        {
+            return; 
+        }
         if (operators.Contains(e.KeySymbol))
         {
-            InputBox.Text += e.KeySymbol;
+            if (InputBox.Text is not null && InputBox.Text == "0")
+            {
+                InputBox.Text = e.KeySymbol;
+            }
+            else
+            {
+                InputBox.Text += e.KeySymbol;
+            }
         }
-        if (int.TryParse(e.KeySymbol, out int digit)) {
-            InputBox.Text += digit;
+        if (e.KeySymbol.All(Char.IsAsciiLetterOrDigit))
+        {
+            if (InputBox.Text is not null && InputBox.Text == "0")
+            {
+                InputBox.Text = e.KeySymbol;
+            }
+            else
+            {
+                InputBox.Text += e.KeySymbol;
+            }
+        }
+        if (e.PhysicalKey == Avalonia.Input.PhysicalKey.Backspace)
+        {
+            if (InputBox.Text is not null && InputBox.Text.Length > 1)
+            {
+                InputBox.Text = InputBox.Text[..^1];
+            }
+            else
+            {
+                InputBox.Text = "0";
+            }
         }
         if (e.PhysicalKey == Avalonia.Input.PhysicalKey.Enter || e.PhysicalKey == Avalonia.Input.PhysicalKey.NumPadEnter)
         {

@@ -78,11 +78,11 @@ namespace test
 
             t = tokens.Consume();
             Assert.True(t?.IsNumeric());
-            Assert.Equal(5.6m, t?.GetNumericalValue());
+            Assert.Equal(5.6, t?.GetNumericalValue());
 
             t = tokens.Consume();
             Assert.True(t?.IsNumeric());
-            Assert.Equal(0.5m, t?.GetNumericalValue());
+            Assert.Equal(0.5, t?.GetNumericalValue());
         }
         [Fact]
         public void Test5()

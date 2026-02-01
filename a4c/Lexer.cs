@@ -43,7 +43,7 @@ namespace a4c
                     {
                         try
                         {
-                            tokens.Add(TokenFactory.CreateToken(Convert.ToDecimal(numberBuffer)));
+                            tokens.Add(TokenFactory.CreateToken(Convert.ToDouble(numberBuffer)));
                         }
                         catch (FormatException)
                         {

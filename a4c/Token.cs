@@ -18,13 +18,13 @@ namespace a4c
         {
             return GetOp() == op;
         }
-        public decimal GetNumericalValue();
+        public  double GetNumericalValue();
         public string ToString();
     }
     internal class NumericToken : IToken
     {
-        private readonly decimal Value;
-        public NumericToken(decimal value)
+        private readonly double Value;
+        public NumericToken(double value)
         {
             this.Value = value;
         }
@@ -42,7 +42,7 @@ namespace a4c
         {
             return Function.None;
         }
-        public decimal GetNumericalValue()
+        public double GetNumericalValue()
         {
             return Value;
         }
@@ -72,7 +72,7 @@ namespace a4c
             return Function.None;
         }
 
-        public decimal GetNumericalValue()
+        public double GetNumericalValue()
         {
             return 0;
         }
@@ -103,7 +103,7 @@ namespace a4c
             return FunctionName;
         }
 
-        public decimal GetNumericalValue()
+        public double GetNumericalValue()
         {
             return 0;
         }
@@ -114,7 +114,7 @@ namespace a4c
     }
     public static class TokenFactory
     {
-        public static IToken CreateToken(decimal value)
+        public static IToken CreateToken(double value)
         {
             return new NumericToken(value);
         }

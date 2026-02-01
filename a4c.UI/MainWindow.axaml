@@ -19,6 +19,7 @@
                  TextWrapping="Wrap"
 				 FontSize="20" 
 				 HorizontalContentAlignment="Right"
+				 Text="0"
 				 IsEnabled="False"/>
 
 		<Grid ColumnDefinitions="60,60,60,60,60" RowDefinitions="60,60,60,60,60">

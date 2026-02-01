@@ -9,7 +9,7 @@ namespace a4c
 {
     public interface INode
     {
-        public decimal Evaluate();
+        public double Evaluate();
         public string ToString();
     }
     public class BinaryNode : INode
@@ -23,7 +23,7 @@ namespace a4c
             this.right = right;
             this.operation = operation;
         }
-        public decimal Evaluate()
+        public double Evaluate()
         {
             switch (operation)
             {
@@ -42,7 +42,7 @@ namespace a4c
                     return left.Evaluate() / r;
                 }
                 case Operation.POW:
-                    return (decimal)Math.Pow((double)left.Evaluate(), (double)right.Evaluate());
+                    return Math.Pow(left.Evaluate(), right.Evaluate());
                 default:
                     throw new TreeException($"Invalid operation on {this}");
             }
@@ -62,7 +62,7 @@ namespace a4c
             this.node = node;
             this.operation = operation;
         }
-        public decimal Evaluate()
+        public double Evaluate()
         {
             switch (operation)
             {
@@ -80,14 +80,14 @@ namespace a4c
 
     public class NumberNode : INode
     {
-        private readonly decimal value;
+        private readonly double value;
 
-        public NumberNode(decimal value)
+        public NumberNode(double value)
         {
             this.value = value;
         }
 
-        public decimal Evaluate()
+        public double Evaluate()
         {
             return value; 
         }
@@ -104,15 +104,14 @@ namespace a4c
             this.Argument = argument;
         }
 
-        decimal INode.Evaluate()
+         double INode.Evaluate()
         {
             switch (FunctionName.GetFunctionName())
             {
-                case Function.SQRT: return Convert.ToDecimal(Math.Sqrt(Convert.ToDouble(Argument.Evaluate())));
-                case Function.SIN: return Convert.ToDecimal(Math.Sin(Convert.ToDouble(Argument.Evaluate())));
-                case Function.COS: return Convert.ToDecimal(Math.Cos(Convert.ToDouble(Argument.Evaluate())));
-                case Function.TAN: return Convert.ToDecimal(Math.Tan(Convert.ToDouble(Argument.Evaluate())));
-
+                case Function.SQRT: return Math.Sqrt(Argument.Evaluate());
+                case Function.SIN: return Math.Sin(Argument.Evaluate());
+                case Function.COS: return Math.Cos(Argument.Evaluate());
+                case Function.TAN: return Math.Tan(Argument.Evaluate());
                 default: throw new TreeException($"Unknown function {this}");
             }
         }
