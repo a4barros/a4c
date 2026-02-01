@@ -12,12 +12,14 @@ namespace a4c
         {
             NORMAL,
             WITHIN_NUMBER,
+            WITHIN_STRING,
         }
         public static TokenList ProcessString(string expressionStr)
         {
             TokenList tokens = new();
             LexerState lexerState = LexerState.NORMAL;
             string numberBuffer = "";
+            string stringBuffer = "";
             foreach (char c in expressionStr + " ")
             {
                 if (c == '.' && numberBuffer.Contains('.'))
@@ -27,6 +29,12 @@ namespace a4c
                 {
                     lexerState = LexerState.WITHIN_NUMBER;
                     numberBuffer = $"{numberBuffer}{c}";
+                    continue;
+                }
+                else if (char.IsAsciiLetter(c))
+                {
+                    lexerState = LexerState.WITHIN_STRING;
+                    stringBuffer = $"{stringBuffer}{c}";
                     continue;
                 }
                 else
@@ -46,6 +54,12 @@ namespace a4c
                             throw new LexerException($"Overflow on number {numberBuffer}{c}");
                         }
                         numberBuffer = "";
+                        lexerState = LexerState.NORMAL;
+                    }
+                    if (lexerState == LexerState.WITHIN_STRING)
+                    {
+                        tokens.Add(TokenFactory.CreateToken(stringBuffer));
+                        stringBuffer = "";
                         lexerState = LexerState.NORMAL;
                     }
                 }

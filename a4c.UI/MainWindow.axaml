@@ -8,7 +8,8 @@
 		CanResize="False"
         x:Class="a4c.UI.MainWindow"
         Title="a4c"
-		KeyDown="Window_KeyDown">
+		KeyDown="Window_KeyDown"
+		FontFamily="Segoe UI">
 	<StackPanel Margin="16" Spacing="8">
 
 
@@ -28,7 +29,8 @@
 					FontSize="24"
 					HorizontalContentAlignment="Center"
 					VerticalContentAlignment="Center"
-					Grid.Row="0"
+					Background="#48525c"
+					Grid.Row="1"
 					Grid.Column="0"/>
 			<Button x:Name="Button8"
 					Content="8"
@@ -37,7 +39,8 @@
 					FontSize="24"
 					HorizontalContentAlignment="Center"
 					VerticalContentAlignment="Center"
-					Grid.Row="0"
+					Background="#48525c"
+					Grid.Row="1"
 					Grid.Column="1"/>
 			<Button x:Name="Button9"
 					Content="9"
@@ -46,7 +49,8 @@
 					FontSize="24"
 					HorizontalContentAlignment="Center"
 					VerticalContentAlignment="Center"
-					Grid.Row="0"
+					Background="#48525c"
+					Grid.Row="1"
 					Grid.Column="2"/>
 			<Button x:Name="Button6"
 					Content="6"
@@ -55,7 +59,8 @@
 					FontSize="24"
 					HorizontalContentAlignment="Center"
 					VerticalContentAlignment="Center"
-					Grid.Row="1"
+					Background="#48525c"
+					Grid.Row="2"
 					Grid.Column="2"/>
 			<Button x:Name="Button5"
 					Content="5"
@@ -64,8 +69,9 @@
 					FontSize="24"
 					HorizontalContentAlignment="Center"
 					VerticalContentAlignment="Center"
-					Grid.Row="1"
-					Grid.Column="1"/>
+					Grid.Row="2"
+					Grid.Column="1"
+					Background="#48525c"/>
 			<Button x:Name="Button4"
 					Content="4"
 					Width="50"
@@ -73,7 +79,8 @@
 					FontSize="24"
 					HorizontalContentAlignment="Center"
 					VerticalContentAlignment="Center"
-					Grid.Row="1"
+					Background="#48525c"
+					Grid.Row="2"
 					Grid.Column="0"/>
 			<Button x:Name="Button3"
 					Content="3"
@@ -82,7 +89,8 @@
 					FontSize="24"
 					HorizontalContentAlignment="Center"
 					VerticalContentAlignment="Center"
-					Grid.Row="2"
+					Background="#48525c"
+					Grid.Row="3"
 					Grid.Column="2"/>
 			<Button x:Name="Button2"
 					Content="2"
@@ -91,7 +99,8 @@
 					FontSize="24"
 					HorizontalContentAlignment="Center"
 					VerticalContentAlignment="Center"
-					Grid.Row="2"
+					Background="#48525c"
+					Grid.Row="3"
 					Grid.Column="1"/>
 			<Button x:Name="Button1"
 					Content="1"
@@ -100,7 +109,8 @@
 					FontSize="24"
 					HorizontalContentAlignment="Center"
 					VerticalContentAlignment="Center"
-					Grid.Row="2"
+					Background="#48525c"
+					Grid.Row="3"
 					Grid.Column="0"/>
 			<Button x:Name="Button0"
 					Content="0"
@@ -109,7 +119,8 @@
 					FontSize="24"
 					HorizontalContentAlignment="Center"
 					VerticalContentAlignment="Center"
-					Grid.Row="3"
+					Background="#48525c"
+					Grid.Row="4"
 					Grid.Column="1"/>
 			<Button x:Name="ButtonPlusMinus"
 					Content="+/-"
@@ -118,7 +129,7 @@
 					FontSize="24"
 					HorizontalContentAlignment="Center"
 					VerticalContentAlignment="Center"
-					Grid.Row="3"
+					Grid.Row="4"
 					Grid.Column="0"/>
 			<Button x:Name="ButtonDecimal"
 					Content="."
@@ -127,7 +138,7 @@
 					FontSize="24"
 					HorizontalContentAlignment="Center"
 					VerticalContentAlignment="Center"
-					Grid.Row="3"
+					Grid.Row="4"
 					Grid.Column="2"/>
 			<Button Content="="
 					Width="50"
@@ -135,7 +146,7 @@
 					FontSize="24"
 					HorizontalContentAlignment="Center"
 					VerticalContentAlignment="Center"
-					Grid.Row="3"
+					Grid.Row="4"
 					Grid.Column="4"
 					Click="Evaluate"/>
 			<Button Content="+"
@@ -144,7 +155,7 @@
 					FontSize="24"
 					HorizontalContentAlignment="Center"
 					VerticalContentAlignment="Center"
-					Grid.Row="3"
+					Grid.Row="4"
 					Grid.Column="3"
 					Click="Evaluate"/>
 			<Button Content="-"
@@ -153,25 +164,25 @@
 					FontSize="24"
 					HorizontalContentAlignment="Center"
 					VerticalContentAlignment="Center"
+					Grid.Row="3"
+					Grid.Column="3"
+					Click="Evaluate"/>
+			<Button Content="&#x00D7;"
+					Width="50"
+					Height="50"
+					FontSize="24"
+					HorizontalContentAlignment="Center"
+					VerticalContentAlignment="Center"
 					Grid.Row="2"
 					Grid.Column="3"
 					Click="Evaluate"/>
-			<Button Content="×"
+			<Button Content="&#x00F7;"
 					Width="50"
 					Height="50"
 					FontSize="24"
 					HorizontalContentAlignment="Center"
 					VerticalContentAlignment="Center"
 					Grid.Row="1"
-					Grid.Column="3"
-					Click="Evaluate"/>
-			<Button Content="÷"
-					Width="50"
-					Height="50"
-					FontSize="24"
-					HorizontalContentAlignment="Center"
-					VerticalContentAlignment="Center"
-					Grid.Row="0"
 					Grid.Column="3"
 					Click="Evaluate"/>
 			<Button Content="("
@@ -181,7 +192,7 @@
 					HorizontalContentAlignment="Center"
 					VerticalContentAlignment="Center"
 					Grid.Row="0"
-					Grid.Column="4"
+					Grid.Column="1"
 					Click="Evaluate"/>
 			<Button Content=")"
 					Width="50"
@@ -189,7 +200,34 @@
 					FontSize="24"
 					HorizontalContentAlignment="Center"
 					VerticalContentAlignment="Center"
-					Grid.Row="1"
+					Grid.Row="0"
+					Grid.Column="2"
+					Click="Evaluate"/>
+			<Button Content="C"
+					Width="50"
+					Height="50"
+					FontSize="24"
+					HorizontalContentAlignment="Center"
+					VerticalContentAlignment="Center"
+					Grid.Row="0"
+					Grid.Column="0"
+					Click="Evaluate"/>
+			<Button Content="&#x232B;"
+					Width="50"
+					Height="50"
+					FontSize="24"
+					HorizontalContentAlignment="Center"
+					VerticalContentAlignment="Center"
+					Grid.Row="0"
+					Grid.Column="3"
+					Click="Evaluate"/>
+			<Button Content="^"
+					Width="50"
+					Height="50"
+					FontSize="24"
+					HorizontalContentAlignment="Center"
+					VerticalContentAlignment="Center"
+					Grid.Row="2"
 					Grid.Column="4"
 					Click="Evaluate"/>
 		</Grid>

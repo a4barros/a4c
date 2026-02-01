@@ -94,5 +94,33 @@ namespace a4c
         public override string ToString() => value.ToString();
 
     }
+    public class FunctionNode : INode
+    {
+        private readonly IToken FunctionName;
+        private readonly INode Argument;
+        public FunctionNode(IToken functionName, INode argument)
+        {
+            this.FunctionName = functionName;
+            this.Argument = argument;
+        }
+
+        decimal INode.Evaluate()
+        {
+            switch (FunctionName.GetFunctionName())
+            {
+                case Function.SQRT: return Convert.ToDecimal(Math.Sqrt(Convert.ToDouble(Argument.Evaluate())));
+                case Function.SIN: return Convert.ToDecimal(Math.Sin(Convert.ToDouble(Argument.Evaluate())));
+                case Function.COS: return Convert.ToDecimal(Math.Cos(Convert.ToDouble(Argument.Evaluate())));
+                case Function.TAN: return Convert.ToDecimal(Math.Tan(Convert.ToDouble(Argument.Evaluate())));
+
+                default: throw new TreeException($"Unknown function {this}");
+            }
+        }
+
+        string INode.ToString()
+        {
+            return $"{FunctionName}({Argument})";
+        }
+    }
     public class TreeException(string message) : Exception(message);
 }

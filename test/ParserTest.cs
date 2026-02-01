@@ -203,5 +203,23 @@ namespace test
             var expr = new Parser(Lexer.ProcessString("( (597355-8916456*59756)/(45952-8252686^3))+789^  (78-100) *968/(964+945)*559+  123"));
             Assert.Equal(123.00000000094795416402683325m, expr.Parse().Evaluate());
         }
+        [Fact]
+        public void TestSqrt1()
+        {
+            var expr = new Parser(Lexer.ProcessString("sqrt(4)"));
+            Assert.Equal(2, expr.Parse().Evaluate());
+        }
+        [Fact]
+        public void TestSqrt2()
+        {
+            var expr = new Parser(Lexer.ProcessString("-sqrt(100)+10"));
+            Assert.Equal(0, expr.Parse().Evaluate());
+        }
+        [Fact]
+        public void TestSqrt3()
+        {
+            var expr = new Parser(Lexer.ProcessString("sqrt(156) + sqrt(9856) - sqrt(965)"));
+            Assert.Equal(80.7029360307056m, expr.Parse().Evaluate());
+        }
     }
 }

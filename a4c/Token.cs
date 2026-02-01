@@ -9,6 +9,7 @@ namespace a4c
     {
         public bool IsNumeric();
         public Operation GetOp();
+        public Function GetFunctionName();
         public bool IsEither(Operation op1, Operation op2)
         {
             return GetOp() == op1 || GetOp() == op2;
@@ -17,7 +18,7 @@ namespace a4c
         {
             return GetOp() == op;
         }
-        public decimal GetValue();
+        public decimal GetNumericalValue();
         public string ToString();
     }
     internal class NumericToken : IToken
@@ -37,14 +38,17 @@ namespace a4c
         {
             return Operation.NUMBER;
         }
-
-        public decimal GetValue()
+        public Function GetFunctionName()
+        {
+            return Function.None;
+        }
+        public decimal GetNumericalValue()
         {
             return Value;
         }
         public override string ToString()
         {
-            return $"<NUMBER {GetValue()}>";
+            return $"{GetNumericalValue()}>";
         }
     }
     internal class OperationToken : IToken
@@ -63,14 +67,49 @@ namespace a4c
         {
             return TokenType;
         }
+        public Function GetFunctionName()
+        {
+            return Function.None;
+        }
 
-        public decimal GetValue()
+        public decimal GetNumericalValue()
         {
             return 0;
         }
         public override string ToString()
         {
             return $"{GetOp()}";
+        }
+    }
+    public class FunctionToken : IToken
+    {
+        private readonly Function FunctionName;
+        public FunctionToken(Function value)
+        {
+            this.FunctionName = value;
+        }
+
+        public bool IsNumeric()
+        {
+            return false;
+        }
+
+        public Operation GetOp()
+        {
+            return Operation.FUNCTION;
+        }
+        public Function GetFunctionName()
+        {
+            return FunctionName;
+        }
+
+        public decimal GetNumericalValue()
+        {
+            return 0;
+        }
+        public override string ToString()
+        {
+            return $"{FunctionName}()";
         }
     }
     public static class TokenFactory
@@ -82,6 +121,23 @@ namespace a4c
         public static IToken CreateToken(Operation tokenType)
         {
             return new OperationToken(tokenType);
+        }
+        public static IToken CreateToken(string functionName)
+        {
+            Function token;
+            try
+            {
+                Enum.TryParse(functionName, true, out token);
+            }
+            catch (InvalidOperationException)
+            {
+                throw new TokenException($"Unknown function {functionName}");
+            }
+            catch (ArgumentException)
+            {
+                throw new TokenException($"Unknown function {functionName}");
+            }
+            return new FunctionToken(token);
         }
     }
     public class TokenList
@@ -113,4 +169,5 @@ namespace a4c
             return String.Join(" ", tokens);
         }
     }
+    class TokenException(string message) : Exception(message) { }
 }

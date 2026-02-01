@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Security.AccessControl;
 using System.Text;
 using System.Xml.Linq;
@@ -16,7 +17,10 @@ namespace a4c
     // <power>  ::= <factor> ^ <factor>
     //           |  <factor>
 
-    // <factor> ::= NUMBER
+    // <factor> ::= function ( <expr> )
+    //           |  <terminal>
+
+    // <terminal> ::= NUMBER
     //           |  ( <expr> )
     //           |  - <factor>
 
@@ -78,14 +82,47 @@ namespace a4c
         }
         private INode ParseFactor()
         {
-            // <factor> ::= NUMBER
+            // <factor> ::= function ( <expr> )
+            //           |  <terminal>
+            var nextToken = tokenList.LookNext();
+            if (nextToken?.GetOp() == Operation.FUNCTION)
+            {
+                var function = tokenList.Consume();
+                if (function == null)
+                {
+                    throw new ParserException("Empty function name");
+                }
+                var p = tokenList.Consume();
+                if (p == null || !p.Is(Operation.OPEN_PARENTHESIS))
+                {
+                    throw new ParserException($"Expecting open parenthesis after function '{function.GetFunctionName()}'");
+                }
+                var argument = ParseExpr();
+                tokenList.Consume();
+                if (p == null || p.Is(Operation.CLOSE_PARENTHESIS))
+                {
+                    throw new ParserException($"Expecting close parenthesis after function '{function.GetFunctionName()}'");
+                }
+                
+                var node = new FunctionNode(function, argument);
+                return node;
+            }
+            else
+            {
+                var node = ParseTerminal();
+                return node;
+            }
+        }
+        private INode ParseTerminal()
+        {
+            // <terminal> ::= NUMBER
             //           |  ( <expr> )
             //           |  - <factor>
             var nextToken = tokenList.LookNext();
             if (nextToken?.GetOp() == Operation.NUMBER)
             {
                 var numberToken = tokenList.Consume() ?? throw new ParserException("No more tokens to consume.");
-                var value = numberToken.GetValue();
+                var value = numberToken.GetNumericalValue();
 
                 return new NumberNode(value);
             }
