@@ -17,7 +17,7 @@ public partial class MainWindow : Window
         InitializeComponent();
         display = Display.GetInstance(InputBox);
     }
-    
+
     public void Evaluate(object source, RoutedEventArgs args)
     {
         display.Evaluate();
@@ -139,5 +139,15 @@ public partial class MainWindow : Window
     private void ButtonBackspace_Click(object? sender, RoutedEventArgs e)
     {
         display.Backspace();
+    }
+
+    private void ButtonPi_Click(object? sender, RoutedEventArgs e)
+    {
+        display.AppendText("PI");
+    }
+
+    private void ButtonE_Click(object? sender, RoutedEventArgs e)
+    {
+        display.AppendText("e");
     }
 }

@@ -56,12 +56,12 @@ jobs:
 
       - name: Release for macOS Intel
         run: dotnet publish a4c.CLI/a4c.CLI.csproj -c Release -r osx-x64 -o publish/macos-x64/cli
-      - name: Release for macOS Intel
+      - name: Release for macOS Intel (GUI)
         run: dotnet publish a4c.GUI/a4c.GUI.csproj -c Release -r osx-x64 -o publish/macos-x64/gui
 
       - name: Release for macOS ARM
         run: dotnet publish a4c.CLI/a4c.CLI.csproj -c Release -r osx-arm64 -o publish/macos-arm64/cli
-      - name: Release for macOS ARM
+      - name: Release for macOS ARM (GUI)
         run: dotnet publish a4c.GUI/a4c.GUI.csproj -c Release -r osx-arm64 -o publish/macos-arm64/gui
 
       - name: Package artifacts
