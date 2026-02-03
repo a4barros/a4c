@@ -45,16 +45,24 @@ jobs:
 
 
       - name: Release for Linux
-        run: dotnet publish a4c.CLI/a4c.CLI.csproj -c Release -r linux-x64 -o publish/cli/linux
+        run: dotnet publish a4c.CLI/a4c.CLI.csproj -c Release -r linux-x64 -o publish/linux/cli
+      - name: Release for Linux (GUI)
+        run: dotnet publish a4c.GUI/a4c.GUI.csproj -c Release -r linux-x64 -o publish/linux/gui
 
       - name: Release for Windows
-        run: dotnet publish a4c.CLI/a4c.CLI.csproj -c Release -r win-x64 -o publish/cli/windows
+        run: dotnet publish a4c.CLI/a4c.CLI.csproj -c Release -r win-x64 -o publish/windows/cli
+      - name: Release for Windows (GUI)
+        run: dotnet publish a4c.GUI/a4c.GUI.csproj -c Release -r win-x64 -o publish/windows/gui
 
       - name: Release for macOS Intel
-        run: dotnet publish a4c.CLI/a4c.CLI.csproj -c Release -r osx-x64 -o publish/cli/macos-x64
+        run: dotnet publish a4c.CLI/a4c.CLI.csproj -c Release -r osx-x64 -o publish/macos-x64/cli
+      - name: Release for macOS Intel
+        run: dotnet publish a4c.GUI/a4c.GUI.csproj -c Release -r osx-x64 -o publish/macos-x64/gui
 
       - name: Release for macOS ARM
-        run: dotnet publish a4c.CLI/a4c.CLI.csproj -c Release -r osx-arm64 -o publish/macos-arm64
+        run: dotnet publish a4c.CLI/a4c.CLI.csproj -c Release -r osx-arm64 -o publish/macos-arm64/cli
+      - name: Release for macOS ARM
+        run: dotnet publish a4c.GUI/a4c.GUI.csproj -c Release -r osx-arm64 -o publish/macos-arm64/gui
 
       - name: Package artifacts
         run: |
