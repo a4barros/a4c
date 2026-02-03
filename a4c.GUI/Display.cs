@@ -46,7 +46,7 @@ namespace a4c.UI
             }
             else
             {
-                DisplayBox.Text = "0";
+                DisplayBox?.Text = "0";
             }
         }
         public void Evaluate()
