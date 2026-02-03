@@ -6,6 +6,6 @@ namespace a4c
 {
     public enum Function
     {
-        None, SQRT, POW, SIN, COS, TAN
+        None, SQRT, CBRT, POW, SIN, COS, TAN, ASIN, ACOS, ATAN, SEC, COSSEC, EXP, TAU, CSC
     }
 }

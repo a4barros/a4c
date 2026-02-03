@@ -150,4 +150,24 @@ public partial class MainWindow : Window
     {
         display.AppendText("e");
     }
+
+    private void ButtonExp_Click(object? sender, RoutedEventArgs e)
+    {
+        display.AppendText("exp(");
+    }
+
+    private void ButtonASin_Click(object? sender, RoutedEventArgs e)
+    {
+        display.AppendText("asin(");
+    }
+
+    private void ButtonACos_Click(object? sender, RoutedEventArgs e)
+    {
+        display.AppendText("acos(");
+    }
+
+    private void ButtonATan_Click(object? sender, RoutedEventArgs e)
+    {
+        display.AppendText("atan(");
+    }
 }

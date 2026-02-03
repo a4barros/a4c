@@ -107,9 +107,18 @@ namespace a4c
             return ((FunctionToken)FunctionName).GetFunctionName() switch
             {
                 Function.SQRT => Math.Sqrt(Argument.Evaluate()),
+                Function.CBRT => Math.Cbrt(Argument.Evaluate()),
                 Function.SIN => Math.Sin(Argument.Evaluate()),
+                Function.ASIN => Math.Asin(Argument.Evaluate()),
                 Function.COS => Math.Cos(Argument.Evaluate()),
+                Function.ACOS => Math.Acos(Argument.Evaluate()),
                 Function.TAN => Math.Tan(Argument.Evaluate()),
+                Function.ATAN => Math.Atan(Argument.Evaluate()),
+                Function.SEC => 1/Math.Cos(Argument.Evaluate()),
+                Function.COSSEC => 1 / Math.Sin(Argument.Evaluate()),
+                Function.CSC => 1 / Math.Sin(Argument.Evaluate()),
+                Function.EXP => Math.Exp(Argument.Evaluate()),
+
                 _ => throw new TreeException($"Unknown function {this}"),
             };
         }
