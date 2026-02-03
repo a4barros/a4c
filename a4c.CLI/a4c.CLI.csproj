@@ -5,6 +5,7 @@
     <TargetFramework>net10.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
+	<!-- My changes -->
 	<!-- Publish defaults -->
 	<SelfContained>true</SelfContained>
 	<PublishSingleFile>true</PublishSingleFile>
@@ -23,6 +24,10 @@
 	<!-- Deterministic & reproducible -->
 	<Deterministic>true</Deterministic>
 	<ContinuousIntegrationBuild>true</ContinuousIntegrationBuild>
+
+	<!-- Do not generate debug (pdb) file -->
+	<DebugType>None</DebugType>
+	<DebugSymbols>false</DebugSymbols>
   </PropertyGroup>
 
   <ItemGroup>
