@@ -96,13 +96,15 @@ namespace a4c
                 var p = tokenList.Consume();
                 if (p == null || !p.Is(Operation.OPEN_PARENTHESIS))
                 {
-                    throw new ParserException($"Expecting open parenthesis after function '{function.GetFunctionName()}'");
+                    var functionName = ((FunctionToken)function).GetFunctionName();
+                    throw new ParserException($"Expecting open parenthesis after function '{functionName}'");
                 }
                 var argument = ParseExpr();
                 tokenList.Consume();
                 if (p == null || p.Is(Operation.CLOSE_PARENTHESIS))
                 {
-                    throw new ParserException($"Expecting close parenthesis after function '{function.GetFunctionName()}'");
+                    var functionName = ((FunctionToken)function).GetFunctionName();
+                    throw new ParserException($"Expecting close parenthesis after function '{functionName}'");
                 }
                 
                 var node = new FunctionNode(function, argument);
@@ -123,7 +125,7 @@ namespace a4c
             if (nextToken?.GetOp() == Operation.NUMBER)
             {
                 var numberToken = tokenList.Consume() ?? throw new ParserException("No more tokens to consume.");
-                var value = numberToken.GetNumericalValue();
+                var value = ((NumericToken)numberToken).GetNumericalValue();
 
                 return new NumberNode(value);
             }

@@ -11,7 +11,8 @@ namespace test
             var tokens = Lexer.ProcessString("1+23 * 0/5  -9");
             var t = tokens.Consume();
             Assert.True(t?.IsNumeric());
-            Assert.Equal(1, t?.GetNumericalValue());
+            Assert.NotNull(t);
+            Assert.Equal(1, ((NumericToken)t).GetNumericalValue());
 
             t = tokens.Consume();
             Assert.False(t?.IsNumeric());
@@ -19,7 +20,8 @@ namespace test
 
             t = tokens.Consume();
             Assert.True(t?.IsNumeric());
-            Assert.Equal(23, t?.GetNumericalValue());
+            Assert.NotNull(t);
+            Assert.Equal(23, ((NumericToken)t).GetNumericalValue());
 
             t = tokens.Consume();
             Assert.False(t?.IsNumeric());
@@ -27,7 +29,8 @@ namespace test
 
             t = tokens.Consume();
             Assert.True(t?.IsNumeric());
-            Assert.Equal(0, t?.GetNumericalValue());
+            Assert.NotNull(t);
+            Assert.Equal(0, ((NumericToken)t).GetNumericalValue());
 
             t = tokens.Consume();
             Assert.False(t?.IsNumeric());
@@ -35,7 +38,8 @@ namespace test
 
             t = tokens.Consume();
             Assert.True(t?.IsNumeric());
-            Assert.Equal(5, t?.GetNumericalValue());
+            Assert.NotNull(t);
+            Assert.Equal(5, ((NumericToken)t).GetNumericalValue());
 
             t = tokens.Consume();
             Assert.False(t?.IsNumeric());
@@ -43,7 +47,8 @@ namespace test
 
             t = tokens.Consume();
             Assert.True(t?.IsNumeric());
-            Assert.Equal(9, t?.GetNumericalValue());
+            Assert.NotNull(t);
+            Assert.Equal(9, ((NumericToken)t).GetNumericalValue());
         }
         [Fact]
         public void Test2()
@@ -51,10 +56,12 @@ namespace test
             var tokens = Lexer.ProcessString("123 456");
             var t = tokens.Consume();
             Assert.True(t?.IsNumeric());
-            Assert.Equal(123, t?.GetNumericalValue());
+            Assert.NotNull(t);
+            Assert.Equal(123, ((NumericToken)t).GetNumericalValue());
             t = tokens.Consume();
             Assert.True(t?.IsNumeric());
-            Assert.Equal(456, t?.GetNumericalValue());
+            Assert.NotNull(t);
+            Assert.Equal(456, ((NumericToken)t).GetNumericalValue());
         }
         [Fact]
         public void Test3()
@@ -78,11 +85,13 @@ namespace test
 
             t = tokens.Consume();
             Assert.True(t?.IsNumeric());
-            Assert.Equal(5.6, t?.GetNumericalValue());
+            Assert.NotNull(t);
+            Assert.Equal(5.6, ((NumericToken)t).GetNumericalValue());
 
             t = tokens.Consume();
             Assert.True(t?.IsNumeric());
-            Assert.Equal(0.5, t?.GetNumericalValue());
+            Assert.NotNull(t);
+            Assert.Equal(0.5, ((NumericToken)t).GetNumericalValue());
         }
         [Fact]
         public void Test5()
@@ -100,14 +109,16 @@ namespace test
 
             t = tokens.Consume();
             Assert.True(t?.IsNumeric());
-            Assert.Equal(1, t?.GetNumericalValue());
+            Assert.NotNull(t);
+            Assert.Equal(1, ((NumericToken)t).GetNumericalValue());
 
             t = tokens.Consume();
             Assert.Equal(Operation.PLUS, t?.GetOp());
 
             t = tokens.Consume();
             Assert.True(t?.IsNumeric());
-            Assert.Equal(2, t?.GetNumericalValue());
+            Assert.NotNull(t);
+            Assert.Equal(2, ((NumericToken)t).GetNumericalValue());
 
             t = tokens.Consume();
             Assert.Equal(Operation.CLOSE_PARENTHESIS, t?.GetOp());
@@ -120,14 +131,16 @@ namespace test
 
             t = tokens.Consume();
             Assert.True(t?.IsNumeric());
-            Assert.Equal(3, t?.GetNumericalValue());
+            Assert.NotNull(t);
+            Assert.Equal(3, ((NumericToken)t).GetNumericalValue());
 
             t = tokens.Consume();
             Assert.Equal(Operation.MINUS, t?.GetOp());
 
             t = tokens.Consume();
             Assert.True(t?.IsNumeric());
-            Assert.Equal(4, t?.GetNumericalValue());
+            Assert.NotNull(t);
+            Assert.Equal(4, ((NumericToken)t).GetNumericalValue());
 
             t = tokens.Consume();
             Assert.Equal(Operation.CLOSE_PARENTHESIS, t?.GetOp());
@@ -139,14 +152,16 @@ namespace test
 
             var t = tokens.Consume();
             Assert.True(t?.IsNumeric());
-            Assert.Equal(12, t?.GetNumericalValue());
+            Assert.NotNull(t);
+            Assert.Equal(12, ((NumericToken)t).GetNumericalValue());
 
             t = tokens.Consume();
             Assert.Equal(Operation.PLUS, t?.GetOp());
 
             t = tokens.Consume();
             Assert.True(t?.IsNumeric());
-            Assert.Equal(3, t?.GetNumericalValue());
+            Assert.NotNull(t);
+            Assert.Equal(3, ((NumericToken)t).GetNumericalValue());
         }
         [Fact]
         public void TestUnaryMinusTokenization()
@@ -158,7 +173,8 @@ namespace test
 
             t = tokens.Consume();
             Assert.True(t?.IsNumeric());
-            Assert.Equal(5, t?.GetNumericalValue());
+            Assert.NotNull(t);
+            Assert.Equal(5, ((NumericToken)t).GetNumericalValue());
 
             t = tokens.Consume();
             Assert.Equal(Operation.PLUS, t?.GetOp());
@@ -168,7 +184,8 @@ namespace test
 
             t = tokens.Consume();
             Assert.True(t?.IsNumeric());
-            Assert.Equal(3, t?.GetNumericalValue());
+            Assert.NotNull(t);
+            Assert.Equal(3, ((NumericToken)t).GetNumericalValue());
         }
         [Fact]
         public void TestInvalidNumbers()
@@ -197,7 +214,8 @@ namespace test
             t = tokens.Consume();
             Assert.Equal(Operation.OPEN_PARENTHESIS, t?.GetOp());
             t = tokens.Consume();
-            Assert.Equal(5, t?.GetNumericalValue());
+            Assert.NotNull(t);
+            Assert.Equal(5, ((NumericToken)t).GetNumericalValue());
 
         }
         [Fact]

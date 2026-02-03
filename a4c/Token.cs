@@ -10,7 +10,6 @@ namespace a4c
     {
         public bool IsNumeric();
         public Operation GetOp();
-        public Function GetFunctionName();
         public bool IsEither(Operation op1, Operation op2)
         {
             return GetOp() == op1 || GetOp() == op2;
@@ -19,10 +18,9 @@ namespace a4c
         {
             return GetOp() == op;
         }
-        public  double GetNumericalValue();
         public string ToString();
     }
-    internal class NumericToken : IToken
+    public class NumericToken : IToken
     {
         private readonly double Value;
         public NumericToken(double value)
@@ -52,7 +50,7 @@ namespace a4c
             return $"{GetNumericalValue()}>";
         }
     }
-    internal class OperationToken : IToken
+    public class OperationToken : IToken
     {
         private Operation TokenType;
         public OperationToken(Operation tokenType)
@@ -67,15 +65,6 @@ namespace a4c
         public Operation GetOp()
         {
             return TokenType;
-        }
-        public Function GetFunctionName()
-        {
-            return Function.None;
-        }
-
-        public double GetNumericalValue()
-        {
-            return 0;
         }
         public override string ToString()
         {
@@ -102,11 +91,6 @@ namespace a4c
         public Function GetFunctionName()
         {
             return FunctionName;
-        }
-
-        public double GetNumericalValue()
-        {
-            return 0;
         }
         public override string ToString()
         {
@@ -142,11 +126,6 @@ namespace a4c
         public override string ToString()
         {
             return $"{ConstantName}";
-        }
-
-        Function IToken.GetFunctionName()
-        {
-            return Function.None;
         }
         public Constant GetConstantName()
         {

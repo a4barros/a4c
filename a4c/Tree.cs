@@ -104,7 +104,7 @@ namespace a4c
 
          double INode.Evaluate()
         {
-            return FunctionName.GetFunctionName() switch
+            return ((FunctionToken)FunctionName).GetFunctionName() switch
             {
                 Function.SQRT => Math.Sqrt(Argument.Evaluate()),
                 Function.SIN => Math.Sin(Argument.Evaluate()),
