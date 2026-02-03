@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Text;
 
 namespace a4c
@@ -112,6 +113,46 @@ namespace a4c
             return $"{FunctionName}()";
         }
     }
+    public class ConstantToken : IToken
+    {
+        private readonly Constant ConstantName;
+        public ConstantToken(Constant constantName)
+        {
+            this.ConstantName = constantName;
+        }
+
+        public bool IsNumeric()
+        {
+            return false;
+        }
+
+        public Operation GetOp()
+        {
+            return Operation.CONSTANT;
+        }
+        public Constant GetFunctionName()
+        {
+            return ConstantName;
+        }
+
+        public double GetNumericalValue()
+        {
+            return 0;
+        }
+        public override string ToString()
+        {
+            return $"{ConstantName}";
+        }
+
+        Function IToken.GetFunctionName()
+        {
+            return Function.None;
+        }
+        public Constant GetConstantName()
+        {
+            return ConstantName; 
+        }
+    }
     public static class TokenFactory
     {
         public static IToken CreateToken(double value)
@@ -122,22 +163,23 @@ namespace a4c
         {
             return new OperationToken(tokenType);
         }
-        public static IToken CreateToken(string functionName)
+        public static IToken CreateToken(string functionOrConstantName)
         {
-            Function token;
-            try
+            var isFunction = Enum.TryParse(functionOrConstantName, true, out Function token);
+            if (isFunction)
             {
-                Enum.TryParse(functionName, true, out token);
+                return new FunctionToken(token);
             }
-            catch (InvalidOperationException)
+
+            var isConstant = Enum.TryParse(functionOrConstantName, true, out Constant constant);
+            if (isConstant)
             {
-                throw new TokenException($"Unknown function {functionName}");
+                return new ConstantToken(constant);
             }
-            catch (ArgumentException)
+            else
             {
-                throw new TokenException($"Unknown function {functionName}");
+                throw new TokenException($"Was expecting a function or constant got {functionOrConstantName}"); 
             }
-            return new FunctionToken(token);
         }
     }
     public class TokenList
@@ -169,5 +211,5 @@ namespace a4c
             return String.Join(" ", tokens);
         }
     }
-    class TokenException(string message) : Exception(message) { }
+    public class TokenException(string message) : Exception(message) { }
 }

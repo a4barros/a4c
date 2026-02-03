@@ -200,5 +200,48 @@ namespace test
             Assert.Equal(5, t?.GetNumericalValue());
 
         }
+        [Fact]
+        public void TestConstant1()
+        {
+            var tokens = Lexer.ProcessString("5 +  pi");
+
+            tokens.Consume();
+            tokens.Consume();
+            var t = tokens.Consume();
+            Assert.Equal(Operation.CONSTANT, t?.GetOp());
+            Assert.Equal("PI", t?.ToString());
+        }
+        [Fact]
+        public void TestConstant2()
+        {
+            var tokens = Lexer.ProcessString("5 + 5 - e - pi");
+
+            tokens.Consume();
+            tokens.Consume();
+            tokens.Consume();
+            tokens.Consume();
+            var t = tokens.Consume();
+            Assert.Equal(Operation.CONSTANT, t?.GetOp());
+            Assert.Equal("E", t?.ToString());
+        }
+        [Fact]
+        public void TestConstant3()
+        {
+            Assert.Throws<TokenException>(() => Lexer.ProcessString("5 + 5 - a - pi"));
+        }
+        [Fact]
+        public void TestConstant4()
+        {
+            Assert.Throws<TokenException>(() => Lexer.ProcessString("pie"));
+        }
+        [Fact]
+        public void TestConstant5()
+        {
+            var tokens = Lexer.ProcessString("Pi");
+
+            var t = tokens.Consume();
+            Assert.Equal(Operation.CONSTANT, t?.GetOp());
+            Assert.Equal("PI", t?.ToString());
+        }
     }
 }

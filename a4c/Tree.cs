@@ -64,13 +64,11 @@ namespace a4c
         }
         public double Evaluate()
         {
-            switch (operation)
+            return operation switch
             {
-                case Operation.NEGATIVE:
-                    return -node.Evaluate();
-                default:
-                    throw new TreeException($"Invalid operation at {this}");
-            }
+                Operation.NEGATIVE => -node.Evaluate(),
+                _ => throw new TreeException($"Invalid operation at {this}"),
+            };
         }
         public override string ToString()
         {
@@ -106,19 +104,40 @@ namespace a4c
 
          double INode.Evaluate()
         {
-            switch (FunctionName.GetFunctionName())
+            return FunctionName.GetFunctionName() switch
             {
-                case Function.SQRT: return Math.Sqrt(Argument.Evaluate());
-                case Function.SIN: return Math.Sin(Argument.Evaluate());
-                case Function.COS: return Math.Cos(Argument.Evaluate());
-                case Function.TAN: return Math.Tan(Argument.Evaluate());
-                default: throw new TreeException($"Unknown function {this}");
-            }
+                Function.SQRT => Math.Sqrt(Argument.Evaluate()),
+                Function.SIN => Math.Sin(Argument.Evaluate()),
+                Function.COS => Math.Cos(Argument.Evaluate()),
+                Function.TAN => Math.Tan(Argument.Evaluate()),
+                _ => throw new TreeException($"Unknown function {this}"),
+            };
         }
 
         string INode.ToString()
         {
             return $"{FunctionName}({Argument})";
+        }
+    }
+    public class ConstantNode : INode
+    {
+        private readonly Constant ConstantName;
+        public ConstantNode(Constant constantName)
+        {
+            ConstantName = constantName;
+        }
+        public double Evaluate()
+        {
+            return ConstantName switch
+            {
+                Constant.PI => Math.PI,
+                Constant.E => Math.E,
+                _ => throw new TreeException($"Unknown constant {this}"),
+            };
+        }
+        string INode.ToString()
+        {
+            return $"{ConstantName}";
         }
     }
     public class TreeException(string message) : Exception(message);

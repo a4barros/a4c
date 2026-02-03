@@ -21,8 +21,9 @@ namespace a4c
     //           |  <terminal>
 
     // <terminal> ::= NUMBER
-    //           |  ( <expr> )
-    //           |  - <factor>
+    //             |  CONSTANT
+    //             |  ( <expr> )
+    //             |  - <factor>
 
     public class Parser
     {
@@ -144,10 +145,16 @@ namespace a4c
                 var operand = ParseFactor();
                 return new UnaryNode(Operation.NEGATIVE, operand);
             }
+            else if (nextToken?.GetOp() == Operation.CONSTANT)
+            {
+                var constant = tokenList.Consume() ?? throw new ParserException(
+                    $"Unexpected '{nextToken}'. Expected constant name.");
+                return new ConstantNode(((ConstantToken)constant).GetConstantName());
+            }
             else
             {
                 throw new ParserException(
-                    $"Unexpected '{nextToken}'. Expected number, '(', or '-'."
+                    $"Unexpected '{nextToken}'. Expected number, parenthesis, minus or constant."
                 );
             }
         }
