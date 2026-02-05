@@ -33,7 +33,8 @@
 					Background="#48525c"
 					Click="Button7_Click"
 					Grid.Row="1"
-					Grid.Column="0"/>
+					Grid.Column="0"
+					Focusable="False"/>
 			<Button x:Name="Button8"
 					Content="8"
 					Width="50"
@@ -44,7 +45,8 @@
 					Background="#48525c"
 					Click="Button8_Click"
 					Grid.Row="1"
-					Grid.Column="1"/>
+					Grid.Column="1"
+					Focusable="False"/>
 			<Button x:Name="Button9"
 					Content="9"
 					Width="50"
@@ -55,7 +57,8 @@
 					Background="#48525c"
 					Click="Button9_Click"
 					Grid.Row="1"
-					Grid.Column="2"/>
+					Grid.Column="2"
+					Focusable="False"/>
 			<Button x:Name="Button6"
 					Content="6"
 					Width="50"
@@ -66,7 +69,8 @@
 					Background="#48525c"
 					Click="Button6_Click"
 					Grid.Row="2"
-					Grid.Column="2"/>
+					Grid.Column="2"
+					Focusable="False"/>
 			<Button x:Name="Button5"
 					Content="5"
 					Width="50"
@@ -77,7 +81,8 @@
 					Click="Button5_Click"
 					Grid.Row="2"
 					Grid.Column="1"
-					Background="#48525c"/>
+					Background="#48525c"
+					Focusable="False"/>
 			<Button x:Name="Button4"
 					Content="4"
 					Width="50"
@@ -88,7 +93,8 @@
 					Background="#48525c"
 					Click="Button4_Click"
 					Grid.Row="2"
-					Grid.Column="0"/>
+					Grid.Column="0"
+					Focusable="False"/>
 			<Button x:Name="Button3"
 					Content="3"
 					Width="50"
@@ -99,7 +105,8 @@
 					Background="#48525c"
 					Click="Button3_Click"
 					Grid.Row="3"
-					Grid.Column="2"/>
+					Grid.Column="2"
+					Focusable="False"/>
 			<Button x:Name="Button2"
 					Content="2"
 					Width="50"
@@ -110,7 +117,8 @@
 					Background="#48525c"
 					Click="Button2_Click"
 					Grid.Row="3"
-					Grid.Column="1"/>
+					Grid.Column="1"
+					Focusable="False"/>
 			<Button x:Name="Button1"
 					Content="1"
 					Width="50"
@@ -121,7 +129,8 @@
 					Background="#48525c"
 					Click="Button1_Click"
 					Grid.Row="3"
-					Grid.Column="0"/>
+					Grid.Column="0"
+					Focusable="False"/>
 			<Button x:Name="Button0"
 					Content="0"
 					Width="50"
@@ -132,7 +141,8 @@
 					Background="#48525c"
 					Click="Button0_Click"
 					Grid.Row="4"
-					Grid.Column="1"/>
+					Grid.Column="1"
+					Focusable="False"/>
 			<Button x:Name="ButtonPlusMinus"
 					Content="+/-"
 					Width="50"
@@ -141,7 +151,8 @@
 					HorizontalContentAlignment="Center"
 					VerticalContentAlignment="Center"
 					Grid.Row="4"
-					Grid.Column="0"/>
+					Grid.Column="0"
+					Focusable="False"/>
 			<Button x:Name="ButtonDecimal"
 					Content="."
 					Width="50"
@@ -151,7 +162,8 @@
 					VerticalContentAlignment="Center"
 					Click="ButtonDecimal_Click"
 					Grid.Row="4"
-					Grid.Column="2"/>
+					Grid.Column="2"
+					Focusable="False"/>
 			<Button Content="="
 					Width="50"
 					Height="50"
@@ -160,7 +172,8 @@
 					VerticalContentAlignment="Center"
 					Grid.Row="4"
 					Grid.Column="5"
-					Click="Evaluate"/>
+					Click="Evaluate"
+					Focusable="False"/>
 			<Button Content="+"
 					Width="50"
 					Height="50"
@@ -170,7 +183,7 @@
 					Click="ButtonPlus_Click"
 					Grid.Row="4"
 					Grid.Column="3"
-					/>
+					Focusable="False"/>
 			<Button x:Name="ButtonMinus"
 					Content="-"
 					Width="50"
@@ -180,7 +193,8 @@
 					VerticalContentAlignment="Center"
 					Grid.Row="3"
 					Grid.Column="3"
-					Click="ButtonMinus_Click"/>
+					Click="ButtonMinus_Click"
+					Focusable="False"/>
 			<Button x:Name="ButtonMul"
 					Content="&#x00D7;"
 					Width="50"
@@ -190,7 +204,8 @@
 					VerticalContentAlignment="Center"
 					Grid.Row="2"
 					Grid.Column="3"
-					Click="ButtonMulti_Click"/>
+					Click="ButtonMulti_Click"
+					Focusable="False"/>
 			<Button x:Name="ButtonDiv"
 					Content="&#x00F7;"
 					Width="50"
@@ -200,7 +215,8 @@
 					VerticalContentAlignment="Center"
 					Grid.Row="1"
 					Grid.Column="3"
-					Click="ButtonDiv_Click"/>
+					Click="ButtonDiv_Click"
+					Focusable="False"/>
 			<Button Content="("
 					Width="50"
 					Height="50"
@@ -209,7 +225,8 @@
 					VerticalContentAlignment="Center"
 					Grid.Row="0"
 					Grid.Column="1"
-					Click="ButtonOpenParenthesis_Click"/>
+					Click="ButtonOpenParenthesis_Click"
+					Focusable="False"/>
 			<Button Content=")"
 					Width="50"
 					Height="50"
@@ -218,7 +235,8 @@
 					VerticalContentAlignment="Center"
 					Grid.Row="0"
 					Grid.Column="2"
-					Click="ButtonCloseParenthesis_Click"/>
+					Click="ButtonCloseParenthesis_Click"
+					Focusable="False"/>
 			<Button Content="C"
 					Width="50"
 					Height="50"
@@ -227,7 +245,8 @@
 					VerticalContentAlignment="Center"
 					Click="ButtonClear_Click"
 					Grid.Row="0"
-					Grid.Column="0" />
+					Grid.Column="0"
+					Focusable="False"/>
 			<Button x:Name="ButtonBackspace"
 					Content="&#x232B;"
 					Width="50"
@@ -237,7 +256,8 @@
 					VerticalContentAlignment="Center"
 					Grid.Row="0"
 					Grid.Column="3"
-					Click="ButtonBackspace_Click"/>
+					Click="ButtonBackspace_Click"
+					Focusable="False"/>
 			<Button x:Name="ButtonPower"
 					Content="^"
 					Width="50"
@@ -247,7 +267,8 @@
 					VerticalContentAlignment="Center"
 					Grid.Row="3"
 					Grid.Column="4"
-					Click="ButtonPower_Click"/>
+					Click="ButtonPower_Click"
+					Focusable="False"/>
 			<Button x:Name="ButtonTan"
 					Content="tan"
 					Width="50"
@@ -257,7 +278,8 @@
 					VerticalContentAlignment="Center"
 					Grid.Row="2"
 					Grid.Column="4"
-					Click="ButtonTan_Click"/>
+					Click="ButtonTan_Click"
+					Focusable="False"/>
 			<Button x:Name="ButtonCos"
 					Content="cos"
 					Width="50"
@@ -267,7 +289,8 @@
 					VerticalContentAlignment="Center"
 					Grid.Row="1"
 					Grid.Column="4"
-					Click="ButtonCos_Click"/>
+					Click="ButtonCos_Click"
+					Focusable="False"/>
 			<Button x:Name="ButtonSin"
 					Content="sin"
 					Width="50"
@@ -277,7 +300,8 @@
 					VerticalContentAlignment="Center"
 					Grid.Row="0"
 					Grid.Column="4"
-					Click="ButtonSin_Click"/>
+					Click="ButtonSin_Click"
+					Focusable="False"/>
 			<Button x:Name="ButtonASin"
 					Content="asin"
 					Width="50"
@@ -287,7 +311,8 @@
 					VerticalContentAlignment="Center"
 					Grid.Row="0"
 					Grid.Column="5"
-					Click="ButtonASin_Click"/>
+					Click="ButtonASin_Click"
+					Focusable="False"/>
 			<Button x:Name="ButtonACos"
 					Content="acos"
 					Width="50"
@@ -297,7 +322,8 @@
 					VerticalContentAlignment="Center"
 					Grid.Row="1"
 					Grid.Column="5"
-					Click="ButtonACos_Click"/>
+					Click="ButtonACos_Click"
+					Focusable="False"/>
 			<Button x:Name="ButtonATan"
 					Content="atan"
 					Width="50"
@@ -307,7 +333,8 @@
 					VerticalContentAlignment="Center"
 					Grid.Row="2"
 					Grid.Column="5"
-					Click="ButtonATan_Click"/>
+					Click="ButtonATan_Click"
+					Focusable="False"/>
 			<Button x:Name="ButtonPi"
 					Content="Pi"
 					Width="50"
@@ -317,7 +344,8 @@
 					VerticalContentAlignment="Center"
 					Grid.Row="3"
 					Grid.Column="5"
-					Click="ButtonPi_Click"/>
+					Click="ButtonPi_Click"
+					Focusable="False"/>
 			<Button x:Name="ButtonExp"
 					Content="exp"
 					Width="50"
@@ -327,7 +355,8 @@
 					VerticalContentAlignment="Center"
 					Grid.Row="4"
 					Grid.Column="4"
-					Click="ButtonExp_Click"/>
+					Click="ButtonExp_Click"
+					Focusable="False"/>
 		</Grid>
 
 	</StackPanel>
