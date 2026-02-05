@@ -20,21 +20,24 @@ namespace a4c
             LexerState lexerState = LexerState.NORMAL;
             string numberBuffer = "";
             string stringBuffer = "";
-            foreach (char c in expressionStr + " ")
+
+            for (int i = 0; i < expressionStr.Length + 1; i++)
             {
+                char c = i < expressionStr.Length ? expressionStr[i] : ' ';
+
                 if (c == '.' && numberBuffer.Contains('.'))
                     throw new LexerException($"Invalid number {numberBuffer}{c}");
 
                 if (char.IsDigit(c) || c == '.')
                 {
                     lexerState = LexerState.WITHIN_NUMBER;
-                    numberBuffer = $"{numberBuffer}{c}";
+                    numberBuffer += c;
                     continue;
                 }
                 else if (char.IsAsciiLetter(c))
                 {
                     lexerState = LexerState.WITHIN_STRING;
-                    stringBuffer = $"{stringBuffer}{c}";
+                    stringBuffer += c;
                     continue;
                 }
                 else
@@ -45,14 +48,11 @@ namespace a4c
                         {
                             tokens.Add(TokenFactory.CreateToken(Convert.ToDouble(numberBuffer)));
                         }
-                        catch (FormatException)
+                        catch (Exception)
                         {
                             throw new LexerException($"Invalid number {numberBuffer}{c}");
                         }
-                        catch (OverflowException)
-                        {
-                            throw new LexerException($"Overflow on number {numberBuffer}{c}");
-                        }
+
                         numberBuffer = "";
                         lexerState = LexerState.NORMAL;
                     }
@@ -65,11 +65,24 @@ namespace a4c
                 }
                 if (lexerState == LexerState.NORMAL)
                 {
+                    if (c == '*')
+                    {
+                        if (i + 1 < expressionStr.Length && expressionStr[i + 1] == '*')
+                        {
+                            tokens.Add(TokenFactory.CreateToken(Operation.POW));
+                            i++;
+                        }
+                        else
+                        {
+                            tokens.Add(TokenFactory.CreateToken(Operation.MUL));
+                        }
+                        continue;
+                    }
+
                     Dictionary<char, Operation> tokenMap = new()
                     {
                         { '+', Operation.PLUS },
                         { '-', Operation.MINUS },
-                        { '*', Operation.MUL },
                         { '/', Operation.DIV },
                         { '^', Operation.POW },
                         { '(', Operation.OPEN_PARENTHESIS },
@@ -80,14 +93,13 @@ namespace a4c
                     {
                         tokens.Add(TokenFactory.CreateToken(tokenMap[c]));
                     }
-                    else
+                    else if (!char.IsWhiteSpace(c))
                     {
-                        if (!char.IsWhiteSpace(c)) {
-                            throw new LexerException($"Invalid character {c}");
-                        }
+                        throw new LexerException($"Invalid character {c}");
                     }
                 }
             }
+
             return tokens;
         }
     }
